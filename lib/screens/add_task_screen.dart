@@ -1,10 +1,13 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, unused_local_variable
 
 import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatelessWidget {
+  final Function addTaskCallback;
+  AddTaskScreen(this.addTaskCallback);
   @override
   Widget build(BuildContext context) {
+    String newTaskTitle = '';
     return Container(
       color: Color(0xff757575),
       child: Container(
@@ -31,6 +34,9 @@ class AddTaskScreen extends StatelessWidget {
             TextField(
               autofocus: true,
               textAlign: TextAlign.center,
+              onChanged: (newText) {
+                newTaskTitle = newText;
+              },
             ),
             SizedBox(
               height: 25,
@@ -39,7 +45,7 @@ class AddTaskScreen extends StatelessWidget {
               height: 50,
               child: TextButton(
                 onPressed: () {
-                  //
+                  addTaskCallback(newTaskTitle);
                 },
                 child: Text(
                   'Add',

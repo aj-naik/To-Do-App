@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, prefer_const_literals_to_create_immutables, unused_local_variable
 
 import 'package:flutter/material.dart';
+import 'package:to_do_app/models/tasks.dart';
+import 'package:provider/provider.dart';
+import 'package:to_do_app/models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  final Function addTaskCallback;
-  AddTaskScreen(this.addTaskCallback);
   @override
   Widget build(BuildContext context) {
     String newTaskTitle = '';
@@ -44,9 +45,6 @@ class AddTaskScreen extends StatelessWidget {
             SizedBox(
               height: 50,
               child: TextButton(
-                onPressed: () {
-                  addTaskCallback(newTaskTitle);
-                },
                 child: Text(
                   'Add',
                   style: TextStyle(
@@ -57,6 +55,11 @@ class AddTaskScreen extends StatelessWidget {
                   primary: Colors.white,
                   backgroundColor: Colors.lightBlueAccent,
                 ),
+                onPressed: () {
+                  Provider.of<TaskData>(context, listen: false)
+                      .addTask(newTaskTitle);
+                  Navigator.pop(context);
+                },
               ),
             ),
           ],
